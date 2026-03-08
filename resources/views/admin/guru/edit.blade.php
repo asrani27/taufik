@@ -1,0 +1,141 @@
+@extends('admin.layouts.app')
+
+@section('title', 'Edit Guru - SMKN 2 SIMPANG EMPAT Tanah Bumbu')
+
+@section('topbar')
+<div class="bg-white shadow-md px-8 py-4">
+    <div class="flex items-center justify-between">
+        <div>
+            <h2 class="text-2xl font-bold text-gray-800">Edit Guru</h2>
+            <p class="text-gray-600">Edit data guru</p>
+        </div>
+        <div class="flex items-center space-x-4">
+            <a href="{{ route('admin.guru.index') }}" 
+                class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg transition-colors flex items-center space-x-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                <span>Kembali</span>
+            </a>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('content')
+<div class="max-w-3xl">
+    <div class="bg-white rounded-xl shadow-lg p-8">
+        <!-- Success Flash Message -->
+        @if(session('success'))
+        <div class="bg-green-50 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-lg" role="alert">
+            <div class="flex items-center">
+                <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="font-medium">{{ session('success') }}</span>
+            </div>
+        </div>
+        @endif
+
+        <!-- Validation Errors -->
+        @if ($errors->any())
+        <div class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-lg" role="alert">
+            <div class="flex items-start">
+                <svg class="w-5 h-5 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                </svg>
+                <div>
+                    <p class="font-medium mb-2">Mohon perbaiki kesalahan berikut:</p>
+                    <ul class="list-disc list-inside space-y-1">
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+        @endif
+
+        <form action="{{ route('admin.guru.update', $guru) }}" method="POST">
+            @csrf
+            @method('PUT')
+
+            <!-- NIP -->
+            <div class="mb-6">
+                <label for="nip" class="block text-sm font-semibold text-gray-700 mb-2">NIP <span class="text-red-500">*</span></label>
+                <input type="text" 
+                    id="nip" 
+                    name="nip" 
+                    value="{{ old('nip', $guru->nip) }}"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Masukkan NIP"
+                    required>
+            </div>
+
+            <!-- Nama -->
+            <div class="mb-6">
+                <label for="nama" class="block text-sm font-semibold text-gray-700 mb-2">Nama Lengkap <span class="text-red-500">*</span></label>
+                <input type="text" 
+                    id="nama" 
+                    name="nama" 
+                    value="{{ old('nama', $guru->nama) }}"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Masukkan nama lengkap guru"
+                    required>
+            </div>
+
+            <!-- TMT -->
+            <div class="mb-6">
+                <label for="tmt" class="block text-sm font-semibold text-gray-700 mb-2">TMT (Terhitung Mulai Tanggal) <span class="text-red-500">*</span></label>
+                <input type="date" 
+                    id="tmt" 
+                    name="tmt" 
+                    value="{{ old('tmt', $guru->tmt ? $guru->tmt->format('Y-m-d') : '') }}"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required>
+            </div>
+
+            <!-- Pangkat -->
+            <div class="mb-6">
+                <label for="pangkat" class="block text-sm font-semibold text-gray-700 mb-2">Pangkat <span class="text-red-500">*</span></label>
+                <input type="text" 
+                    id="pangkat" 
+                    name="pangkat" 
+                    value="{{ old('pangkat', $guru->pangkat) }}"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Contoh: Penata Muda, Penata, Pembina, dll."
+                    required>
+            </div>
+
+            <!-- Jabatan -->
+            <div class="mb-6">
+                <label for="jabatan" class="block text-sm font-semibold text-gray-700 mb-2">Jabatan <span class="text-red-500">*</span></label>
+                <input type="text" 
+                    id="jabatan" 
+                    name="jabatan" 
+                    value="{{ old('jabatan', $guru->jabatan) }}"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Contoh: Guru Mata Pelajaran, Wali Kelas, dll."
+                    required>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200">
+                <a href="{{ route('admin.guru.index') }}" 
+                    class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 px-6 rounded-lg transition-colors">
+                    Batal
+                </a>
+                <button type="submit" 
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center space-x-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                            d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span>Update</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection
