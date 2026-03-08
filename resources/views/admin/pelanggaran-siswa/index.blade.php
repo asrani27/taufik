@@ -71,6 +71,8 @@
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            No</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             Nomor</th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             Siswa</th>
@@ -80,6 +82,7 @@
                             Tanggal & Jam</th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             Jenis Pelanggaran</th>
+
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             Tindak Lanjut</th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -87,8 +90,11 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
-                    @forelse($pelanggarans as $pelanggaran)
+                    @forelse($pelanggarans as $index => $pelanggaran)
                     <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                            {{ ($pelanggarans->currentPage() - 1) * $pelanggarans->perPage() + $index + 1 }}
+                        </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                             {{ $pelanggaran->nomor }}
                         </td>
@@ -96,6 +102,7 @@
                             <p class="font-medium text-gray-900">{{ $pelanggaran->siswa->nama }}</p>
                             <p class="text-gray-500">{{ $pelanggaran->siswa->nis }}</p>
                         </td>
+
                         <td class="px-6 py-4 whitespace-nowrap text-sm">
                             <p class="text-gray-900">{{ $pelanggaran->guru->nama }}</p>
                             <p class="text-gray-500">{{ $pelanggaran->guru->nip }}</p>
@@ -148,7 +155,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7" class="px-6 py-12 text-center">
+                        <td colspan="8" class="px-6 py-12 text-center">
                             <div class="flex flex-col items-center justify-center">
                                 <svg class="w-16 h-16 text-gray-300 mb-4" fill="none" stroke="currentColor"
                                     viewBox="0 0 24 24">
@@ -159,6 +166,7 @@
                             </div>
                         </td>
                     </tr>
+
                     @endforelse
                 </tbody>
             </table>
