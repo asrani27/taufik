@@ -99,7 +99,7 @@
                 </a>
             </li>
             <li>
-                <a href="#"
+                <a href="{{ route('admin.laporan.index') }}"
                     class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-blue-800 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

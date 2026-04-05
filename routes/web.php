@@ -6,6 +6,7 @@ use App\Http\Controllers\GuruController;
 use App\Http\Controllers\JenisPelanggaranController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\KepalaSekolahController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PelanggaranSiswaController;
 use App\Http\Controllers\PrestasiSiswaController;
 use App\Http\Controllers\SiswaController;
@@ -85,4 +86,12 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/prestasi-siswa/{prestasiSiswa}/edit', [PrestasiSiswaController::class, 'edit'])->name('admin.prestasi-siswa.edit');
     Route::put('/prestasi-siswa/{prestasiSiswa}', [PrestasiSiswaController::class, 'update'])->name('admin.prestasi-siswa.update');
     Route::delete('/prestasi-siswa/{prestasiSiswa}', [PrestasiSiswaController::class, 'destroy'])->name('admin.prestasi-siswa.destroy');
+    
+    // Laporan Routes
+    Route::get('/laporan', [LaporanController::class, 'index'])->name('admin.laporan.index');
+    Route::get('/laporan/kepalasekolah/pdf', [LaporanController::class, 'kepalaSekolahPDF'])->name('admin.laporan.kepalasekolah.pdf');
+    Route::get('/laporan/siswa/pdf', [LaporanController::class, 'siswaPDF'])->name('admin.laporan.siswa.pdf');
+    Route::get('/laporan/pelanggaran-siswa/pdf', [LaporanController::class, 'pelanggaranSiswaPDF'])->name('admin.laporan.pelanggaran-siswa.pdf');
+    Route::get('/laporan/jenis-pelanggaran/pdf', [LaporanController::class, 'jenisPelanggaranPDF'])->name('admin.laporan.jenis-pelanggaran.pdf');
+    Route::get('/laporan/prestasi-siswa/pdf', [LaporanController::class, 'prestasiSiswaPDF'])->name('admin.laporan.prestasi-siswa.pdf');
 });
