@@ -89,4 +89,18 @@ class LaporanController extends Controller
         
         return $pdf->stream('laporan-prestasi-siswa-' . date('Y-m-d') . '.pdf');
     }
+
+    /**
+     * Generate PDF for Guru report.
+     */
+    public function guruPDF()
+    {
+        // Get Guru data
+        $gurus = \App\Models\Guru::orderBy('nama')->get();
+
+        $pdf = Pdf::loadView('admin.laporan.pdf.guru', compact('gurus'))
+            ->setPaper('a4', 'landscape');
+        
+        return $pdf->stream('laporan-guru-' . date('Y-m-d') . '.pdf');
+    }
 }

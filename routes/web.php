@@ -94,4 +94,5 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/laporan/pelanggaran-siswa/pdf', [LaporanController::class, 'pelanggaranSiswaPDF'])->name('admin.laporan.pelanggaran-siswa.pdf');
     Route::get('/laporan/jenis-pelanggaran/pdf', [LaporanController::class, 'jenisPelanggaranPDF'])->name('admin.laporan.jenis-pelanggaran.pdf');
     Route::get('/laporan/prestasi-siswa/pdf', [LaporanController::class, 'prestasiSiswaPDF'])->name('admin.laporan.prestasi-siswa.pdf');
+    Route::get('/laporan/guru/pdf', [LaporanController::class, 'guruPDF'])->name('admin.laporan.guru.pdf');
 });
